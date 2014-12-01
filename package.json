@@ -1,0 +1,29 @@
+{
+  "name": "itbit",
+  "version": "0.0.1",
+  "description": "itbit API client for node.js",
+  "keywords": [
+    "btc",
+    "bitcoin",
+    "itbit"
+  ],
+  "author": "Nick Addison",
+  "license": "MIT",
+  "dependencies": {
+    "querystring": "~0.2.0",
+    "request": "~2.48.0",
+    "verror": "~1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naddison36/itbit"
+  },
+  "main": "itbit.js",
+  "engines": {
+    "node": "~0.10"
+  },
+  "bugs": {
+    "url": "https://github.com/naddison36/itbit/issues"
+  },
+  "readmeFilename": "README.md"
+}
