@@ -117,9 +117,18 @@ function executeRequest(options, callback)
 
   request(options, function (err, res, body)
   {
-    var json,
-        requestDesc = util.format('%s request to url %s',
-        options.method, options.uri);
+    var json, requestDesc;
+
+    if (options.method === 'GET')
+    {
+      requestDesc = util.format('%s request to url %s',
+          options.method, options.uri);
+    }
+    else
+    {
+      requestDesc = util.format('%s request to url %s with nonce %s and data %s',
+          options.method, options.uri, options.headers["X-Auth-Nonce"], JSON.stringify(options.json));
+    }
 
     if (err)
     {
