@@ -1,6 +1,6 @@
 {
   "name": "itbit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "itbit API client for node.js",
   "keywords": [
     "btc",
