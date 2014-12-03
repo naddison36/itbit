@@ -163,7 +163,7 @@ ItBit.prototype.getWallets = function(userId, callback)
   makePrivateRequest("GET", "/wallets", {userId: userId}, callback);
 };
 
-ItBit.prototype.getWalletBalances = function(walletId, callback)
+ItBit.prototype.getWallet = function(walletId, callback)
 {
   makePrivateRequest("GET", "/wallets/" + walletId, {}, callback);
 };

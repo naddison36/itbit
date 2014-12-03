@@ -14,6 +14,10 @@ Please contact help@itbit.com if you are having trouble opening and account or t
 ```js
 var ItBit = require('itbit');
 
+var userId = "",
+    walletId = "",
+    orderId = "";
+
 var itBit = new ItBit({
     key: "",
     secret: "",
@@ -21,37 +25,65 @@ var itBit = new ItBit({
 });
 
 itBit.getTicker("XBTUSD",
-	function(err, data){
-		console.log('bid ' + data.bid + ' ask ' + data.ask);
-});
+    function(err, data)
+    {
+        console.log('bid ' + data.bid + ' ask ' + data.ask);
+    }
+);
 
 itBit.getOrderBook("XBTUSD",
-	function(err, data){
-		console.log('%s bids and %s asks', data.bids.length, data.asks.length);
-});
+    function(err, data)
+    {
+        console.log('%s bids and %s asks', data.bids.length, data.asks.length);
+    }
+);
 
 itBit.getWallets(userId,
-	function(err, data){
-		console.log(data);
-});
+    function(err, wallets)
+    {
+        // for each wallet
+        wallets.forEach(function(wallet)
+        {
+            console.log('wallet id %s, account identifier %s', wallet.id, wallet.accountIdentifier);
 
-itBit.getWalletBalances(walletId,
-	function(err, data){
-		console.log(data);
-});
+            // for each currency
+            wallet.balances.forEach(function(balance)
+            {
+                console.log('currency %s, total %s, available %s', balance.currency, balance.totalBalance, balance.availableBalance);
+            });
+        });
+    }
+);
+
+itBit.getWallet(walletId,
+    function(err, wallet)
+    {
+        // for each currency
+        wallet.balances.forEach(function(balance)
+        {
+            console.log('currency %s, total %s, available %s', balance.currency, balance.totalBalance, balance.availableBalance);
+        });
+    }
+);
 
 itBit.addOrder(walletId, "sell", "limit", "0.01", "500", "XBTUSD", null, null,
-	function(err, data){
-		console.log('new order id ' + data.id);
-});
+    function(err, data)
+    {
+        console.log('new order id ' + data.id);
+    }
+);
 
-itBit.getOrder(walletId, id,
-	function(err, data){
-		console.log(data);
-});
+itBit.getOrder(walletId, orderId,
+    function(err, data)
+    {
+        console.log(data);
+    }
+);
 
-itBit.cancelOrder(walletId, id,
-	function(err, data){
-		console.log(data);
-});
+itBit.cancelOrder(walletId, orderId,
+    function(err, data)
+    {
+        console.log(data);
+    }
+);
 ```
