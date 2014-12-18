@@ -1,7 +1,9 @@
 var querystring = require("querystring"),
     request = require("request"),
     VError = require('verror'),
+    cheerio = require('cheerio'),
     crypto = require("crypto"),
+    _ = require("underscore"),
     util = require('util');
 
 var self;
@@ -15,7 +17,7 @@ var ItBit = function ItBit(settings)
 
   this.serverV1 = settings.serverV1 || "https://api.itbit.com/v1";
   this.serverV2 = settings.serverV2 || "https://www.itbit.com/api/v2";
-  this.timeout = settings.timeout || 5000;  // 5 seconds
+  this.timeout = settings.timeout || 20000;  // milli seconds
 
   // initialize nonce to current unix time in seconds
   this.nonce = (new Date()).getTime();
@@ -113,47 +115,59 @@ function makePrivateRequest(method, path, args, callback)
 
 function executeRequest(options, callback)
 {
-  var functionName = 'ItBit.executeRequest()';
+  var functionName = 'ItBit.executeRequest()',
+      json, requestDesc;
+
+  if (options.method === 'GET')
+  {
+    requestDesc = util.format('%s request to url %s',
+        options.method, options.uri);
+  }
+  else
+  {
+    requestDesc = util.format('%s request to url %s with nonce %s and data %s',
+        options.method, options.uri, options.headers["X-Auth-Nonce"], JSON.stringify(options.json));
+  }
 
   request(options, function (err, res, body)
   {
-    var json, requestDesc;
-
-    if (options.method === 'GET')
-    {
-      requestDesc = util.format('%s request to url %s',
-          options.method, options.uri);
-    }
-    else
-    {
-      requestDesc = util.format('%s request to url %s with nonce %s and data %s',
-          options.method, options.uri, options.headers["X-Auth-Nonce"], JSON.stringify(options.json));
-    }
+    var error = null;   // default to no errors
 
     if (err)
     {
-      var error = new VError(err, '%s failed %s', functionName, requestDesc);
+      error = new VError(err, '%s failed %s', functionName, requestDesc);
+    }
+    // if request was not able to parse json response into an object
+    else if (!_.isObject(body) )
+    {
+      // try and parse HTML body form response
+      $ = cheerio.load(body);
 
-      return callback(error);
+      var responseBody = $('body').text();
+
+      if (responseBody)
+      {
+        error = new VError(err, '%s could not parse response body from %s\nResponse body: %s', functionName, requestDesc, responseBody);
+      }
+      else
+      {
+        error = new VError(err, '%s could not parse json or HTML response from %s', functionName, requestDesc);
+      }
     }
     else if (body && body.code)
     {
-      var error = new VError('%s failed %s. Error code %s, description: %s', functionName,
+      error = new VError('%s failed %s. Error code %s, description: %s', functionName,
           requestDesc, body.code, body.description);
       error.name = body.code;
-
-      return callback(error);
     }
     else if (!(res.statusCode === 200 || res.statusCode === 201 || res.statusCode === 202))
     {
-      var error = new VError('%s failed %s. Response status code %s, response body %s', functionName,
+      error = new VError('%s failed %s. Response status code %s, response body %s', functionName,
           requestDesc, res.statusCode, res.body);
       error.name = res.statusCode;
-
-      return callback(error);
     }
 
-    callback(null, body);
+    callback(error, body);
   });
 };
 
