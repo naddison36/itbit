@@ -14,7 +14,7 @@
     "cheerio": "0.17.0",
     "querystring": "~0.2.0",
     "request": "~2.48.0",
-    "underscore": "~1.7.0",
+    "underscore": "~1.8.2",
     "verror": "~1.6.0"
   },
   "repository": {
