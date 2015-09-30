@@ -22,9 +22,6 @@
     "url": "https://github.com/naddison36/itbit"
   },
   "main": "itbit.js",
-  "engines": {
-    "node": "~0.10"
-  },
   "bugs": {
     "url": "https://github.com/naddison36/itbit/issues"
   },
