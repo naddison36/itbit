@@ -234,9 +234,9 @@ ItBit.prototype.cancelOrder = function(walletId, id, callback)
   makePrivateRequest("DELETE", "/wallets/" + walletId + "/orders/" + id, {}, callback);
 };
 
-ItBit.prototype.trades = function(walletId, callback)
+ItBit.prototype.getWalletTrades = function(walletId, params, callback)
 {
-  makePrivateRequest("GET", "/wallets/" + walletId + "/trades", {}, callback);
+  makePrivateRequest("GET", "/wallets/" + walletId + "/trades", params, callback);
 };
 
 ItBit.prototype.cryptocurrency_withdrawals = function(walletId, currency, amount, address, callback)
