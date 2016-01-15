@@ -160,6 +160,14 @@ function executeRequest(options, callback)
           requestDesc, body.code, body.description);
       error.name = body.code;
     }
+    // the following is to trap the JSON response
+    // {"error":"The itBit API is currently undergoing maintenance"}
+    else if (body && body.error)
+    {
+      error = new VError('%s failed %s. Error %s', functionName,
+          requestDesc, body.error);
+      error.name = body.error;
+    }
     else if (!(res.statusCode === 200 || res.statusCode === 201 || res.statusCode === 202))
     {
       error = new VError('%s failed %s. Response status code %s, response body %s', functionName,
