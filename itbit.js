@@ -247,6 +247,11 @@ ItBit.prototype.getWalletTrades = function(walletId, params, callback)
   makePrivateRequest("GET", "/wallets/" + walletId + "/trades", params, callback);
 };
 
+ItBit.prototype.getFundingHistory = function(walletId, params, callback)
+{
+  makePrivateRequest("GET", "/wallets/" + walletId + "/funding_history", params, callback);
+};
+
 ItBit.prototype.cryptocurrency_withdrawals = function(walletId, currency, amount, address, callback)
 {
   var args = { currency: currency, amount: amount, address: address };
