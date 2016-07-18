@@ -137,6 +137,10 @@ function executeRequest(options, callback)
     {
       error = new VError(err, '%s failed %s', functionName, requestDesc);
     }
+    else if (!body)
+    {
+      error = new VError('%s failed %s. Not response from server', functionName, requestDesc);
+    }
     // if request was not able to parse json response into an object
     else if (!_.isObject(body) )
     {
@@ -181,7 +185,7 @@ function executeRequest(options, callback)
 
 ItBit.prototype.getOrderBook = function(tickerSymbol, callback)
 {
-  makePublicRequest('v2', "/markets/" + tickerSymbol + "/orders", {}, callback);
+  makePublicRequest('v1', "/markets/" + tickerSymbol + "/order_book", {}, callback);
 };
 
 ItBit.prototype.getTicker = function(tickerSymbol, callback)
