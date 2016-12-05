@@ -75,7 +75,7 @@ function makePrivateRequest(method, path, args, callback)
   {
     postData = JSON.stringify(args);
   }
-  else if (method === "GET")
+  else if (method === "GET" && !_.isEmpty(args))
   {
     uri += "?" + querystring.stringify(args);
   }
