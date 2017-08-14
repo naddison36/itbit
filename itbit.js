@@ -75,7 +75,7 @@ function makePrivateRequest(method, path, args, callback)
   {
     postData = JSON.stringify(args);
   }
-  else if (method === "GET")
+  else if (method === "GET" && !_.isEmpty(args))
   {
     uri += "?" + querystring.stringify(args);
   }
@@ -86,15 +86,17 @@ function makePrivateRequest(method, path, args, callback)
   // message is concatenated string of nonce and JSON array of secret, method, uri, json_body, nonce, timestamp
   var message = nonce + JSON.stringify([method, uri, postData, nonce.toString(), timestamp.toString()]);
 
-  var hash_digest = crypto
+  var hashBuffer = crypto
       .createHash("sha256")
       .update(message).
-      digest("binary");
+      digest();
+
+  var bufferToHash = Buffer.concat([Buffer.from(uri), hashBuffer]);
 
   var signer = crypto.createHmac("sha512", self.secret);
 
   var signature = signer
-      .update(uri + hash_digest)
+      .update(bufferToHash)
       .digest("base64");
 
   var options = {
