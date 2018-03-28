@@ -1,6 +1,6 @@
 {
   "name": "itbit",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "itbit API client for node.js",
   "keywords": [
     "btc",
@@ -13,7 +13,7 @@
   "dependencies": {
     "cheerio": "0.22.0",
     "querystring": "~0.2.0",
-    "request": "~2.81.0",
+    "request": "~2.85.0",
     "underscore": "~1.8.3",
     "verror": "~1.6.0"
   },
