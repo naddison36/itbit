@@ -210,6 +210,11 @@ ItBit.prototype.getWallet = function(walletId, callback)
   makePrivateRequest("GET", "/wallets/" + walletId, {}, callback);
 };
 
+ItBit.prototype.getWalletBalance = function(walletId, tickerSymbol, callback)
+{
+    makePrivateRequest("GET", "/wallets/" + walletId + "/balances/" + tickerSymbol, {}, callback);
+};
+
 ItBit.prototype.getOrders = function(walletId, instrument, status, callback)
 {
   var args = {
