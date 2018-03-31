@@ -1,6 +1,6 @@
 itBit
 ===============
-This is a node.js wrapper for the private and public methods exposed by the [itBit API](http://api-portal.anypoint.mulesoft.com/itbit/api/itbit-exchange).
+This is a node.js wrapper for the private and public methods exposed by the [itBit API](https://api.itbit.com/docs).
 You will need have a registered account with [itBit](https://www.itbit.com/) and requested API keys to access the private methods.
 
 Please contact help@itbit.com if you are having trouble opening and account and api@itbit.com to request your API key.
