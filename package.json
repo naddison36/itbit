@@ -1,6 +1,6 @@
 {
   "name": "itbit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "itbit API client for node.js",
   "keywords": [
     "btc",
@@ -11,11 +11,11 @@
   "author": "Nick Addison",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "0.22.0",
-    "querystring": "~0.2.0",
-    "request": "~2.85.0",
-    "underscore": "~1.8.3",
-    "verror": "~1.6.0"
+    "cheerio": "^0.22.0",
+    "querystring": "^0.2.0",
+    "request": "^2.87.0",
+    "underscore": "^1.8.3",
+    "verror": "^1.6.0"
   },
   "repository": {
     "type": "git",

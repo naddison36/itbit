@@ -1,5 +1,10 @@
 itBit
 ===============
+
+[![npm version](https://badge.fury.io/js/itbit.svg)](https://badge.fury.io/js/itbit)
+[![Known Vulnerabilities](https://snyk.io/test/github/naddison36/itbit/badge.svg)](https://snyk.io/test/github/naddison36/itbit)
+
+
 This is a node.js wrapper for the private and public methods exposed by the [itBit API](https://api.itbit.com/docs).
 You will need have a registered account with [itBit](https://www.itbit.com/) and requested API keys to access the private methods.
 
