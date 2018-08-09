@@ -190,7 +190,6 @@ ItBit.prototype.getWalletBalance = function (walletId, tickerSymbol) {
 };
 
 ItBit.prototype.getOrders = function (walletId, instrument, status) {
-   
     var args = {};
     
     if (instrument)
@@ -198,11 +197,8 @@ ItBit.prototype.getOrders = function (walletId, instrument, status) {
     
     if (status)
         args.status = status;
-    
-    if (args.instrument || args.status)
-        return makePrivateRequest("GET", "/wallets/" + walletId + "/orders", args);
 
-    return makePrivateRequest("GET", "/wallets/" + walletId);
+    return makePrivateRequest("GET", "/wallets/" + walletId + "/orders", args);
 };
 
 ItBit.prototype.getOrder = function (walletId, id) {
