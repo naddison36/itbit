@@ -190,11 +190,7 @@ ItBit.prototype.getWalletBalance = function (walletId, tickerSymbol) {
 };
 
 ItBit.prototype.getOrders = function (walletId, instrument, status) {
-    var args = {
-        instrument: instrument,
-        status: status
-    }
-    
+   
     var args = {};
     
     if (instrument)
