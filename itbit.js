@@ -194,8 +194,19 @@ ItBit.prototype.getOrders = function (walletId, instrument, status) {
         instrument: instrument,
         status: status
     }
+    
+    var args = {};
+    
+    if (instrument)
+        args.instrument = instrument;
+    
+    if (status)
+        args.status = status;
+    
+    if (args.instrument || args.status)
+        return makePrivateRequest("GET", "/wallets/" + walletId + "/orders", args);
 
-    return makePrivateRequest("GET", "/wallets/" + walletId + "/orders", args);
+    return makePrivateRequest("GET", "/wallets/" + walletId);
 };
 
 ItBit.prototype.getOrder = function (walletId, id) {
